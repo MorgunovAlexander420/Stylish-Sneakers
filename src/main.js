@@ -5,15 +5,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
 import Home from './pages/Home.vue'
-import Favorites from './pages/Favorites.vue'
-import UserProfile from './pages/UserProfile.vue'
+import Login from './pages/Login.vue'
+import Register from './pages/Register.vue'
+import Profile from './pages/Profile.vue'
+import Toast from './components/Toast.vue'
 
 const app = createApp(App)
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/favorites', name: 'Favorites', component: Favorites },
-  { path: '/profile', name: 'Profile', component: UserProfile }
+  { path: '/profile', name: 'Profile', component: Profile },
+  { path: '/login', name: 'Login', component: Login},
+  { path: '/register', name: 'Register', component: Register },
 ]
 
 const router = createRouter({
@@ -23,3 +26,4 @@ const router = createRouter({
 
 app.use(router)
 app.mount('#app')
+app.component('Toast', Toast);

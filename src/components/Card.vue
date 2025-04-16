@@ -1,109 +1,57 @@
-<script setup>
-import { ref, inject, computed } from 'vue'
+<template>
+  <div class="relative flex flex-col justify-between p-5 transition bg-white border shadow-lg cursor-pointer border-slate-200 rounded-3xl hover:-translate-y-2 hover:shadow-2xl">
+    <img
+      :src="isFavorite ? '/like_active.svg' : '/like_no_active.svg'"
+      alt="like"
+      class="absolute w-8 h-8 transition-colors duration-300 border border-gray-200 rounded-xl top-4 left-4 hover:border-red-500"
+      @click="toggleFavorite"
+    />
+    <div class="flex justify-center items-center h-[160px]">
+      <img
+        :src="imageUrl"
+        alt="sneaker"
+        class="max-h-[160px]"
+      />
+    </div>
+    <p class="mt-2 overflow-hidden font-medium text-left whitespace-nowrap text-ellipsis">
+      {{ title }}
+    </p>
+    <div class="flex justify-between pt-2 mt-auto">
+      <div class="flex flex-col">
+        <span class="text-left text-md text-slate-400">Цена:</span>
+        <span class="text-lg font-semibold">{{ price }} руб.</span>
+      </div>
+      <button
+        class="flex items-center justify-center w-8 h-8 mt-3 text-xl"
+        :disabled="isInCart"
+      >
+      <img
+      :src="isInCart ? '/cart_active.svg' : '/cart_no_active.svg'"
+      alt="like"
+      @click="addToCartHandler">
+      </button>
+    </div>
+  </div>
+</template>
 
-const addToCart = inject('addToCart')
-const favorites = inject('favorites')
-const removeFromFavorites = inject('removeFromFavorites')
-const addToFavorites = inject('addToFavorites')
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   title: String,
   imageUrl: String,
   price: Number,
   isFavorite: Boolean,
-  isAdded: Boolean
-})
+  isInCart: Boolean,
+});
 
-const favoriteState = computed(() => {
-  return favorites.value.some((fav) => fav.title === props.title)
-})
+const emit = defineEmits(['toggle-favorite', 'add-to-cart']);
 
 const toggleFavorite = () => {
-  const item = { title: props.title, imageUrl: props.imageUrl, price: props.price }
-
-  if (favoriteState.value) {
-    removeFromFavorites(item)
-  } else {
-    addToFavorites(item)
-  }
-}
+  emit('toggle-favorite');
+};
 
 const addToCartHandler = () => {
-  const item = { title: props.title, imageUrl: props.imageUrl, price: props.price }
-  addToCart(item)
-}
+  emit('add-to-cart');
+};
 </script>
-
-<template>
-  <div
-    class="relative bg-white border border-slate-200 rounded-3xl p-8 mt-2 cursor-pointer shadow-lg hover:-translate-y-2 hover:shadow-2xl transition flex flex-col justify-between h-full"
-  >
-    <img
-      :src="favoriteState ? '/like-2.svg' : '/like-1.svg'"
-      alt="like"
-      class="like-icon absolute border border-gray-200 rounded-xl top-8 left-8"
-      @click="toggleFavorite"
-    />
-    <img :src="imageUrl" alt="sneaker" class="sneaker-img" />
-    <p class="mt-2">{{ title }}</p>
-
-    <div class="flex justify-between mt-5 mb-3">
-      <div class="flex flex-col">
-        <span class="text-slate-400 text-price">Цена:</span>
-        <span class="text-lg font-bold">{{ price }} руб.</span>
-      </div>
-
-      <button
-        class="plus bg-gray-200 text-white mt-3 w-8 h-8 rounded-xl flex items-center justify-center text-xl hover:bg-gray-300 active:bg-gray-400 transition"
-        @click="addToCartHandler"
-      >
-        <p class="mb-1">+</p>
-      </button>
-    </div>
-  </div>
-</template>
-<style scoped>
-/* Карточка адаптивна */
-.card {
-  padding: 12px;
-}
-
-.sneaker-img {
-  max-height: 150px;
-  object-fit: contain; /* Предотвращаем обрезание изображения */
-}
-
-.text-price {
-  font-size: 14px;
-}
-
-@media (max-width: 540px) {
-  .relative {
-    padding: 8px; /* Уменьшаем отступы */
-  }
-
-  .text-lg {
-    font-size: 14px; /* Уменьшаем размер текста */
-  }
-
-  .sneaker-img {
-    max-height: 120px; /* Пропорционально уменьшаем изображение */
-  }
-
-  button {
-    width: 35px;
-    height: 35px;
-  }
-
-  .like-icon {
-    width: 30px;
-    left: 17px;
-    top: 17px;
-  }
-
-  .plus {
-    height: 30px;
-    width: 30px;
-  }
-}
-</style>

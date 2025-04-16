@@ -2,21 +2,21 @@
   <footer class="footer bg-gray-300 w-full h-[80px] border border-t-stone-200">
     <div class="flex items-center justify-center h-full">
       <div class="flex gap-1">
-        <img src="/Копирайт.svg" alt="" class="cop" />
+        <img src="/copyright.svg" alt="" class="cop" />
         <p class="text-slate-600">2015–2024 Stylish-Sneakers — магазин брендовой обуви</p>
       </div>
 
       <div class="flex gap-3 ml-10 cursor-pointer">
         <img
-          src="/Inst.svg"
+          src="/logo_Inst.svg"
           class="inst w-9 hover:scale-[1.15] hover:transition-transform duration-200"
         />
         <img
-          src="/Tg.svg"
+          src="/logo_telegram.svg"
           class="tg w-8 hover:scale-[1.15] hover:transition-transform duration-200"
         />
         <img
-          src="/WA.svg"
+          src="/logo_whatsapp.svg"
           class="wa w-8 hover:scale-[1.15] hover:transition-transform duration-200"
         />
       </div>

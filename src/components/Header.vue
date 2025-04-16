@@ -1,58 +1,60 @@
-<script setup>
-const emit = defineEmits(['openDrawer'])
-</script>
-
 <template>
-  <header
-    class="bg-black text-white w-full h-20 fixed top-0 left-1/2 flex justify-between px-8 px-20 px-60"
-  >
-    <router-link to="/">
+  <header class="fixed top-0 left-0 right-0 z-10 flex items-center justify-between w-full h-20 px-8 text-white bg-gray-300">
+    <router-link to="/" class="logotype-container">
       <div class="logotype flex items-center mt-[10px] gap-4">
-        <img src="/logoK2.png" alt="logo" class="w-14" />
+        <img src="/logo.png" alt="logo" class="w-14" />
         <div>
-          <h2 class="text-2xl font-extrabold uppercase custom-h2">Stylish-Sneakers</h2>
-          <p class="text-slate-300 text-sm custom-podp">Магазин люксовых кроссовк</p>
+          <h2 class="text-2xl font-extrabold uppercase text-slate-800 custom-h2">Stylish-Sneakers</h2>
+          <p class="text-sm font-semibold text-white custom-podp">Магазин люксовых кроссовок</p>
         </div>
       </div>
     </router-link>
 
     <ul class="flex items-center gap-6 md:gap-10 lg:gap-14">
-      <li
-        @click="() => emit('openDrawer')"
-        class="flex items-center gap-2 md:gap-3 cursor-pointer text-sm md:text-lg text-white-600S hover:text-slate-400"
-      >
-        <img src="/Корзина.svg" alt="Корзина" class="w-9" />
-        <span class="text-xl">Корзина</span>
+      <li @click="() => emit('openDrawer')" class="menu-item">
+        <img class="w-11 basket-icon" src="/basket_icon.svg" alt="Корзина" />
+        <span class="hidden menu-text md:block">Корзина</span>
       </li>
-
-      <router-link to="/favorites">
-        <li
-          class="flex items-center gap-2 md:gap-3 cursor-pointer text-sm md:text-lg text-white-600 font-medium hover:text-slate-400"
-        >
-          <img src="/Закладки.svg" alt="Закладки" class="w-8" />
-          <span class="text-xl">Закладки</span>
-        </li>
-      </router-link>
-
-      <router-link to="/profile">
-        <li
-          class="flex items-center gap-2 md:gap-3 cursor-pointer text-sm md:text-lg text-white-600 font-medium hover:text-slate-400"
-        >
-          <img src="/Профиль.svg" alt="Профиль" class="w-8" />
-          <span class="text-xl">Профиль</span>
-        </li>
+      
+      <router-link to="/profile" class="menu-item">
+        <img class="w-10 profile-icon" src="/profile_icon.svg" alt="Профиль" />
+        <span class="hidden menu-text md:block">Профиль</span>
       </router-link>
     </ul>
   </header>
 </template>
+
+<script setup>
+    const emit = defineEmits(['openDrawer'])
+</script>
+
 <style scoped>
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%; /* Занимает всю ширину экрана */
-  z-index: 1;
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-text {
+  font-weight: 600; 
+}
+
+.menu-item:hover .menu-text {
+  color: #000000; 
+}
+
+.menu-item:hover .profile-icon {
+  content: url('/profile_icon_hover.svg'); 
+}
+
+.menu-item:hover .basket-icon {
+  content: url('/basket_icon_hover.svg'); 
+}
+
+.menu-item:hover .favorite-icon {
+  content: url('/favorite_icon_hover.svg'); 
 }
 
 @media (max-width: 1120px) {
@@ -148,3 +150,4 @@ header {
   }
 }
 </style>
+
